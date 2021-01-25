@@ -396,6 +396,26 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-6">
+            <div class="box">
+                <h5>Livro Caixa</h5>
+                <button type="button" class="btn btn-outline-primary btn-sm  pull-right  " (click)="printview()" style="float:right">Imprimir</button>
+
+                <div class="form-group col-md-6  ">
+                    <label class="control-label">Data início</label>
+                    <nz-date-picker class="limpar form-control  form-control-sm " [nzFormat]="dateFormat" [(ngModel)]="datainicio">
+                    </nz-date-picker>
+
+                </div>
+                <div class="form-group col-md-6  ">
+                    <label class="control-label">Data Fim</label>
+                    <nz-date-picker class="limpar form-control  form-control-sm " [nzFormat]="dateFormat" [(ngModel)]="datafim">
+                    </nz-date-picker>
+
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

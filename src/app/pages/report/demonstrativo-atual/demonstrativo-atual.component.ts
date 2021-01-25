@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { data } from 'jquery';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Pessoa } from 'src/app/models/pessoa';
 import { DemosntrativoFinanceiroDto } from 'src/app/models/report/demosntrativo-financeiro-dto';
@@ -95,12 +96,18 @@ export class DemonstrativoAtualComponent implements OnInit {
   exercicio;
   mes;
   demosntrativoFinanceiroDto: DemosntrativoFinanceiroDto;
+  dateFormat = 'dd/MM/yyyy';
+  datainicio:Date;
+  datafim:Date;
   constructor(
     private movimentoFinanceiroService: ReporMovimentoFinanceiroService,
     private empresaService: CompanyService,
     public storage: StorageService,
     private spinner: NgxSpinnerService,
-  ) { }
+  ) {
+    this.datainicio=new Date();
+    this.datafim=new Date();
+   }
 
   async ngOnInit(): Promise<void> {
     this.demosntrativoFinanceiroDto = {} as DemosntrativoFinanceiroDto;
