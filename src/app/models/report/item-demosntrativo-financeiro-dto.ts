@@ -5,4 +5,6 @@ export interface ItemDemosntrativoFinanceiroDto {
   valorrealizar?: number;
   valorrealizado?: number;
   data?: Date;
+  moeda?: string;
+  banco?: string;
 }
