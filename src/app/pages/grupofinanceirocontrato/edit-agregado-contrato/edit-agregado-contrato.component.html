@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="my-input1">Descrição</label>
+            <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="agregadofinaneiro.name" type="text" name="street" nz-input placeholder="Descrição">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="my-input1">Percentual</label>
+            <input nz-input id="my-input" class="form-control form-control-sm" [(ngModel)]="agregadofinaneiro.percentual" currencyMask [options]="customCurrencyMaskConfig" [placeholder]="'0,00'">
+
+
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="my-select">Centro Custo</label>
+
+            <nz-select nzShowSearch nzPlaceHolder="" [(ngModel)]="agregadofinaneiro.centrocusto.id" class=" form-control form-control-sm">
+                <nz-option [nzLabel]="item.name" [nzValue]="item.id" *ngFor="let item of centrocustos"></nz-option>
+            </nz-select>
+
+        </div>
+    </div>
+
+</div>

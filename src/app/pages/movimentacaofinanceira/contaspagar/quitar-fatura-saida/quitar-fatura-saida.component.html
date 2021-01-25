@@ -1,0 +1,140 @@
+<section class="content-header">
+  <h1>
+    Quitar Fatura de Contas a Pagar
+  </h1>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a  (click)="voltar()" >Contas a Pagar Exercicio: {{exercicio}} </a></li>
+
+    <li class="breadcrumb-item active">Quitar Contas a Pagar</li>
+  </ol>
+
+</section>
+
+
+<!-- end page title -->
+<section class="content">
+  <div class="box">
+    <div class="card">
+      <div class="card-body">
+        <nz-alert nzType="error" nzMessage="Esta Fatura já foi finalizado" nzShowIcon *ngIf="finalizado==true" ></nz-alert>
+ <br>
+        <button *ngIf="fatura.dataquitacao!=null
+        && finalizado==false && fatura.numerodocumento.length>0 && changeImage && fatura.idbanco!=null
+          && fatura.formapagamento.length>0"
+          class="btn btn-outline-primary btn-sm  pull-right" (click)="save()" style="float:right" type="button"><i
+            nz-icon nzType="save" nzTheme="outline"></i> Baixar Fatura</button>
+
+        <h4 class="box-title">Quitar fatura de Pagamento</h4>
+
+        <div class="row">
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="my-select">Nome</label>
+              <input nz-input class=" form-control form-control-sm" readonly [(ngModel)]="fatura.name" type="text"
+                name="email1">
+
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="my-select">Código</label>
+              <input nz-input [(ngModel)]="fatura.numerodocumento" id=" nzSearch" name=" nzSearch" placeholder="Código "
+                class=" form-control form-control-sm">
+            </div>
+          </div>
+          <div class="col-sm-s">
+            <div class="form-group">
+              <label for="my-select">Vencimento</label>
+              <label nz-input class=" form-control form-control-sm" for="my-select">
+                {{fatura.dataVencimento | date:'dd/MM/yyyy' }}</label>
+
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="my-select">Data Quitação</label>
+              <nz-date-picker class="limpar form-control  form-control-sm " [nzFormat]="dateFormat"
+                [(ngModel)]="fatura.dataquitacao">
+              </nz-date-picker>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="my-select">Parcela</label>
+              <input nz-input class=" form-control form-control-sm" [(ngModel)]="fatura.parcela" type="text"
+                currencyMask [options]="customCurrencyMaskConfig">
+
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="my-select">Valor</label>
+              <input nz-input [(ngModel)]="fatura.valor" id=" nzSearch" name=" nzSearch" (keyup)="somatotal()"
+                placeholder="Código " class=" form-control form-control-sm" currencyMask [options]="customMaskConfig">
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="my-select">Jurus</label>
+              <input nz-input [(ngModel)]="fatura.jurus" id=" nzSearch" name=" nzSearch" (keyup)="somatotal()"
+                placeholder="Código " class=" form-control form-control-sm" currencyMask [options]="customMaskConfig">
+
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="my-select">Desconto</label>
+              <input nz-input [(ngModel)]="fatura.desconto" id=" nzSearch" name=" nzSearch" (keyup)="somatotal()"
+                placeholder="Código " class=" form-control form-control-sm" currencyMask [options]="customMaskConfig">
+
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="my-select">Total</label>
+              <label class=" form-control form-control-sm">{{total | currency:'BRL'}} </label>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="my-select">Banco Pagador</label>
+              <br>
+              <nz-select class=" form-control form-control-sm  " nzShowSearch nzAllowClear style="width: 300px;"
+                [(ngModel)]="fatura.idbanco" nzPlaceHolder="Selecione um banco">
+                <nz-option *ngFor="let item of bancos" [nzLabel]="item.banco" [nzValue]="item.id"></nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="my-select">Forma Pagamento</label>
+              <br>
+              <nz-select class=" form-control form-control-sm  " nzShowSearch nzAllowClear style="width: 300px;"
+                [(ngModel)]="fatura.formapagamento" nzPlaceHolder="Forma Pagm">
+                <nz-option nzLabel="Dinheiro" nzValue="Dinheiro"></nz-option>
+                <nz-option nzLabel="TransferÊncia Bancária" nzValue="TransferÊncia Bancária"></nz-option>
+                <nz-option nzLabel="Débito em Conta" nzValue="Débito em Conta"></nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <input type="file"
+              accept="application/pdf" id="customFile" (change)="selectFile($event)" value="Selecionar Comprovante">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

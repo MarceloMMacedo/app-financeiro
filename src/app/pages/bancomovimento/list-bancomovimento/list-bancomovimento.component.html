@@ -1,0 +1,114 @@
+<section class="content-header">
+    <h1>
+        Lista Bancos
+    </h1>
+    <!--<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Examples</a></li>
+        <li class="breadcrumb-item active">Blank page</li>
+	  </ol>
+	-->
+</section>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Lista</h3>
+
+            <div class="box-tools pull-right">
+
+                <button class="btn btn-outline-primary mb-2 mr-2" (click)="newbanco(content)">Adicionar Banco</button>
+            </div>
+            <div class="box-body my-custom-scrollbarauto">
+                <table id="alter_pagination" class="table table-hover row-border hover my-custom-scrollbarauto">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Banco</th>
+                            <th>Agência</th>
+                            <th>Saldo</th>
+                            <!--<th>Saldo Retido</th>
+                            <th>Saldo Devedor</th>
+                        -->
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let item of bancos$  ">
+                            <td><a>{{item.descricao}} </a></td>
+                            <td> {{item.banco}} </td>
+                            <td>{{item.agencia}} </td>
+                            <td> {{item.saldo | currency:'R$'}} </td>
+                            <!--<td>{{item.saldoRetido| currency:'R$'}} </td>
+                            <td> {{item.saldoDisponivel | currency:'R$'}} </td>
+                        -->
+                            <td>
+                                <a class="btn btn-link btn-sm" (click)="editbanco(item,content)">
+                                    <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Banco Movimento</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="my-input1">Descrição</label>
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="banco.descricao" type="text" name="street" nz-input placeholder="Descrição">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="my-input1">Banco</label>
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="banco.banco" type="text" name="text" nz-input placeholder="Banco">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="my-input1">Agência</label>
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="banco.agencia" type="text" nz-input placeholder="Agência">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="my-input1">Conta</label>
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="banco.conta" type="text" name="street" nz-input placeholder="Conta">
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="my-input1">Saldo</label>
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="banco.saldo" type="text" (disabled)="banco.id===null" name="street" nz-input placeholder="Saldo" currencyMask [options]="customCurrencyMaskConfig">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        <button type="button" class="btn btn-danger" *ngIf="banco.conta!=null && banco.descricao!=null && banco.banco!=null && banco.agencia!=null" (click)="modal.close('Ok click')">Ok</button>
+    </div>
+</ng-template>

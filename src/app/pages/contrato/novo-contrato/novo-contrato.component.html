@@ -1,0 +1,309 @@
+<section class="content-header pagina">
+    <h1>
+        Editar Contratos
+    </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/contratos']" routerLinkActive="router-link-active"><i
+                    class="fa fa-dashboard"></i> Lista de Contratos</a></li>
+        <li class="breadcrumb-item"><a>Editar</a></li>
+    </ol>
+
+</section>
+<section class="pagina">
+    <input type="file" id="imgupload" style="display:none" accept="application/pdf" (change)="onUploadMainImage($event)" />
+
+    <div class="box">
+        <h4 class="card-title">Editar Contrato</h4>
+        <button type="button" class="btn btn-outline-primary btn-sm" style="float:right" *ngIf="contrato.id!=0">
+            <i nz-icon nzType="copy" nzTheme="outline"></i>
+            Clonar Contrato
+        </button>
+        <nz-divider nzType="vertical">
+
+        </nz-divider>
+        <button type="button" class="btn btn-outline-primary btn-sm" style="float:right" *ngIf="  contrato.name!=null && contrato.financeiroContrato.id!=null
+                 && contrato.cliente.id!=null " (click)="save()">
+            <i class="fa fa-check-square" aria-hidden="true"></i> Salvar
+        </button>
+        <button (click)="printContas()"> prn</button>
+        <div class=" with-border">
+            <div class=" ">
+                <div>
+
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card ">
+                                    <div class="card-body ">
+                                        <h4 class="card-title mt-0 ">Dados do Contratos</h4>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="form-group   col-md-6">
+                                                <label class="control-label ">Descrição</label>
+                                                <input pInputText id="accountPrefix" type="text" class="limpar form-control  form-control-sm " [(ngModel)]="contrato.name" name="bean.descricao">
+                                            </div>
+
+                                            <div class="form-group col-md-6  ">
+                                                <label class="control-label ">Cliente</label>
+                                                <nz-select class="  form-control  form-control-sm " nzShowSearch nzPlaceHolder="Selecione um cliente" [(ngModel)]="contrato.cliente.id">
+                                                    <nz-option [nzLabel]="item.name" [nzValue]="item.id" *ngFor="let item of clientes "></nz-option>
+
+                                                </nz-select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6  ">
+                                                <label class="control-label ">Grupo Financeiro</label>
+                                                <nz-select class="limpar form-control  form-control-sm " nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="contrato.financeiroContrato.id">
+                                                    <nz-option [nzLabel]="item.name" [nzValue]="item.id" *ngFor="let item of grupocontarto$   "></nz-option>
+
+                                                </nz-select>
+                                            </div>
+
+
+                                            <div class="form-group col-md-6  ">
+                                                <label class="control-label">Data início</label>
+                                                <nz-date-picker class="limpar form-control  form-control-sm " [nzFormat]="dateFormat" [(ngModel)]="contrato.datainicio">
+                                                </nz-date-picker>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="my-input1">Período</label>
+                                                    <input nz-input id="my-input" class="  form-control form-control-sm" [(ngModel)]="contrato.periodo" currencyMask [options]="customCurrencyMaskConfig">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="my-input1">Dia Leitura</label>
+                                                    <input nz-input id="my-input" class="
+                                                     form-control form-control-sm" [(ngModel)]="contrato.diaLeitura" currencyMask [options]="customCurrencyMaskConfig">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="my-input1">Dia Vencimento</label>
+                                                    <input nz-input id="my-input" class="form-control form-control-sm" [(ngModel)]="contrato.diaVencimento" currencyMask [options]="customCurrencyMaskConfig">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="my-input1">Valor Franqueado</label>
+                                                    <select [(ngModel)]="contrato.isFranquia" class="  form-control form-control-sm">
+                                                        <option [value]="'Não'">Não</option>
+                                                        <option [value]="'Sim'">Sim</option>
+                                                    </select>
+
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4" *ngIf="contrato.isFranquia!='Sim'">
+                                                <div class="form-group">
+                                                    <label for="my-input1">Valor fixo</label>
+                                                    <input nz-input id="my-input" class="
+                                                     form-control form-control-sm" [(ngModel)]="contrato.valor" currencyMask [options]="customMaskConfig">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="my-input11">Valor Contrato</label>
+                                                    <input nz-input id="my-input" readonly class="
+                                                        form-control form-control-sm" [(ngModel)]="contrato.total" currencyMask [options]="customMaskConfig">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 ">
+                                <div class="card ">
+
+
+
+                                    <div class="card-body ">
+                                        <nz-tabset>
+                                            <nz-tab nzTitle="Equipamentos">
+
+                                                <div class="box-tools pull-right">
+                                                    <button class="btn btn-outline-primary mb-2 mr-2 btn-sm" (click)="newEquipamento()">  Adicionar  </button>
+                                                </div>
+
+
+                                                <h4>Lista</h4>
+                                                <div class="my-custom-scrollbarauto ">
+                                                    <table class="table table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Equipamento</th>
+                                                                <th>Patrimônio</th>
+                                                                <th>Tipo</th>
+                                                                <th>Serial</th>
+                                                                <th>Setor</th>
+                                                                <th>ValorUnit.</th>
+                                                                <th>Franquia</th>
+                                                                <th>Valor</th>
+
+                                                                <th>Editar</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of contrato.equipamentosContratos; let i=index">
+                                                                <td>{{i+1}} - {{item.equipamento.name}} </td>
+                                                                <td>{{item.equipamento.codPatrimonio}} </td>
+                                                                <td>{{item.equipamento.tipoPatrimonio}} </td>
+                                                                <td>{{item.equipamento.serial}} </td>
+                                                                <td>{{item.setor}} </td>
+                                                                <td>{{item.valorfranquia |currency:'R$'}} </td>
+                                                                <td>{{item.franquia}} </td>
+
+                                                                <td>{{item.valortotal |currency:'R$'}} </td>
+                                                                <td>
+                                                                    <a class="btn btn-link btn-sm" (click)="editEquipamento(item)">
+                                                                        <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                                                                    <a class="btn btn-link btn-sm" (click)="deletePatrimonio(i,item.id)">
+                                                                        <i nz-icon nzType="delete" nzTheme="outline"></i></a>
+                                                                </td>
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </nz-tab>
+
+                                            <nz-tab nzTitle="Grupo Financeiro">
+                                                <h4>Lista</h4>
+                                                <div class="my-custom-scrollbarauto ">
+                                                    <table class="table table-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>*</th>
+                                                                <th>Centro Custo</th>
+                                                                <th>Percentual</th>
+                                                                <th>Valor</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of contrato.valoresContrato; let i=index">
+                                                                <td>{{i+1}} </td>
+                                                                <td>{{item.name}} </td>
+                                                                <td>{{item.percentual | currency:' ' }} </td>
+                                                                <td>{{item.valor | currency:'R$'}} </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </nz-tab>
+
+
+                                        </nz-tabset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="tplTitle" [nzContent]="tplContent" (nzOnCancel)="handleCancel() " (nzOnOk)="handleAddPatrimonio()">
+    <ng-template #tplTitle>
+        <span>Adicionar Patrimonio</span>
+    </ng-template>
+    <ng-template #tplContent let-params>
+        <div class="row">
+            <div class="form-group   col-md-6">
+                <label class="control-label ">Setor</label>
+                <input pInputText id="accountPrefix" type="text" class="limpar form-control  form-control-sm " [(ngModel)]="equipamento.setor" name="equipamento.setor">
+            </div>
+
+            <div class="form-group   col-md-6">
+                <label class="control-label ">Equipamento</label>
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="" [(ngModel)]="equipamento.equipamento.id" class="form-control form-control-sm">
+                    <nz-option *ngFor="let item of   patrimonios   " [nzLabel]="item.name +' | ' + item.serial " [nzValue]="item.id"></nz-option>
+                </nz-select>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="my-input1">Franquia</label>
+                    <input nz-input id="my-input" class="  form-control form-control-sm" [(ngModel)]="equipamento.franquia" currencyMask [options]="customCurrencyMaskConfig">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="my-input1">Valor Franquia</label>
+                    <input nz-input id="my-input" class="form-control form-control-sm" [(ngModel)]="equipamento.valorfranquia" currencyMask [options]="customMaskConfig">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="my-input1">Valor</label>
+                    <input nz-input id="my-input" readonly class="
+                         form-control form-control-sm" [(ngModel)]="equipamento.valor" currencyMask [options]="customMaskConfig">
+                </div>
+            </div>
+
+        </div>
+    </ng-template>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleedit" [nzTitle]="tplTitleEdit" [nzContent]="tplContentEdit" (nzOnCancel)="handleCancel() " (nzOnOk)="handleEditPatrimonio()">
+    <ng-template #tplTitleEdit>
+        <span>Editar Patrimonio</span>
+    </ng-template>
+    <ng-template #tplContentEdit let-params>
+        <div class="row">
+            <div class="form-group   col-md-6">
+                <label class="control-label ">Setor</label>
+                <input pInputText id="accountPrefix" type="text" class="limpar form-control  form-control-sm " [(ngModel)]="equipamento.setor" name="equipamento.setor">
+            </div>
+
+            <div class="form-group   col-md-6">
+                <label class="control-label ">Equipamento</label>
+                <input pInputText id="accountPrefix" type="text" class="limpar form-control  form-control-sm " [(ngModel)]="equipamento.equipamento.name" name="equipamento.namee">
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="my-input1">Franquia</label>
+                    <input nz-input id="my-input" class="  form-control form-control-sm" [(ngModel)]="equipamento.franquia" currencyMask [options]="customCurrencyMaskConfig">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="my-input1">Valor Franquia</label>
+                    <input nz-input id="my-input" class="form-control form-control-sm" [(ngModel)]="equipamento.valorfranquia" currencyMask [options]="customMaskConfig">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="my-input1">Valor</label>
+                    <input nz-input id="my-input" readonly class="
+                         form-control form-control-sm" [(ngModel)]="equipamento.valor" currencyMask [options]="customMaskConfig">
+                </div>
+            </div>
+
+        </div>
+    </ng-template>
+</nz-modal>

@@ -1,0 +1,108 @@
+<section class="content-header">
+    <h1>
+        Lista Patrimônio
+    </h1>
+    <!--<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Examples</a></li>
+        <li class="breadcrumb-item active">Blank page</li>
+	  </ol>
+	-->
+</section>
+
+
+
+
+<!-- end page title -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Lista</h3>
+
+            <div class="form-group form-inline form-element">
+                Pesquisar: <input nz-input placeholder="Pesquisar" class="form-control form-control-sm ml-2 " name="search" [(ngModel)]="searchValue" #search (keyup)="debounceTimeSearch()">
+
+            </div>
+            <div class="box-tools pull-right">
+                <button class="btn btn-outline-primary mb-2 mr-2" (click)="newpatrimonio(mynew)">Adicionar</button>
+            </div>
+            <div class="box-body my-custom-scrollbarauto">
+
+
+                <nz-table #nzTable [nzData]="listOfDisplayPatrimonios" nzTableLayout="fixed" nzTableLayout="fixed" nzSize="small" nzBordered [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+                    <thead>
+                        <tr>
+                            <th>Index </th>
+                            <th nzCustomFilter>
+                                Nome
+                                <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                    <i nz-icon nzType="search"></i>
+                                </nz-filter-trigger>
+                            </th>
+                            <th>Cod. Patrimonio</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of nzTable.data ; let i=index">
+                            <td>{{i +1 }} </td>
+                            <td>
+                                <nz-avatar [nzShape]="'square'" [nzSize]="40" [nzSrc]="data.avatarView || 'assets/imgs/prod.jpg'"></nz-avatar>
+                                {{ data.name }}</td>
+                            <td>{{ data.cpfOnCnpj }}</td>
+                            <td>
+                                <button nz-button nzType="default" [routerLink]="['/patrimonios', data.id ]">
+                                  <i nz-icon nzType="edit" nzTheme="twotone"></i>
+                              </button>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <button nz-button nzType="defaul" nz-tooltip="Excluir Patrimônio" [routerLink]="['/patrimonios/remove', data.id ]"> <i nz-icon nzType="delete" nzTheme="twotone"></i>
+                              </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <div class="ant-table-filter-dropdown">
+                        <div class="search-box">
+                            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                        </div>
+                    </div>
+                </nz-dropdown-menu>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #mynew let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">AdicinarPatrimônio</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="my-input">Descrição</label>
+            <input pInputText name="nro" class="form-control form-control-sm" [(ngModel)]="patrimonio.name" placeholder="Descrição" />
+        </div>
+
+        <p>
+            <span class="text-danger">Depois desta opração novo Patrinônio será criado e adicionado a
+        lista.</span>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">
+      Cancelar
+    </button>
+        <button type="button" *ngIf="patrimonio.name.length!=0" ngbAutofocus class="btn btn-danger" (click)="modal.close('onconsole()')">
+      <i class="fas fa-check-double"></i> Confirmar
+    </button>
+    </div>
+</ng-template>
+
+<div class="printdiv"></div>

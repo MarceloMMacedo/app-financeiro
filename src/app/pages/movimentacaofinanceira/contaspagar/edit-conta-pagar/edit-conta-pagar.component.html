@@ -1,0 +1,118 @@
+<section class="content-header">
+  <h1>
+    Contas a Pagar
+  </h1>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a (click)="voltar()">Contas a Pagar Exercicio: {{exercicio}} </a></li>
+
+    <li class="breadcrumb-item active">Quitar Contas a Pagar</li>
+  </ol>
+
+</section>
+
+<section class="content">
+  <!-- Default box -->
+
+  <div class="box">
+    <div class="box-header with-border my-custom-scrollbarauto">
+      <h3 class="box-title">Editar Contas Pagar</h3>
+
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="my-select">Descrição pagamento</label>
+          <input nz-input class=" form-control form-control-sm" readonly [(ngModel)]="contasPagarSaida.name" type="text"
+            name="email1">
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Grupo Saída</label>
+          <label class="limpar form-control  form-control-sm ">{{contasPagarSaida.name}} </label>
+
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Vencimento</label>
+          <nz-date-picker class="limpar form-control  form-control-sm " [nzFormat]="dateFormat"
+            [(ngModel)]="contasPagarSaida.dataVencimento">
+          </nz-date-picker>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Parcela</label>
+          <input nz-input class=" form-control form-control-sm" [(ngModel)]="contasPagarSaida.parcela" type="text"
+            name="parcela">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Valor</label>
+          <br>
+          <label class=" form-control form-control-sm">{{contasPagarSaida.valor |currency:'BRL'}}</label>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Valor Aberto</label>
+          <br>
+          <label class=" form-control form-control-sm">{{contasPagarSaida.valorAberto |currency:'BRL'}}</label>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Valor Quitado</label>
+          <br>
+          <label class=" form-control form-control-sm">{{contasPagarSaida.valorQuit |currency:'BRL'}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-header with-border my-custom-scrollbarauto">
+      <h3 class="box-title">Faturas</h3>
+      <div class="my-custom-scrollbarauto ">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th nzWidth="5%">Index </th>
+              <th>Descrição</th>
+              <th>Parcela</th>
+              <th>Vencimento</th>
+              <th>Valor Principal</th>
+              <th nzWidth="5%">Editar</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of contasPagarSaida.faturas; let i=index">
+              <td>{{i+1}}</td>
+              <td>{{item.name}} </td>
+              <td>{{item.parcela}} </td>
+              <td>{{item.dataVencimento | date:'dd/MM/yyyy'}} </td>
+
+              <td>{{item.valor | currency:'BRL'}}  </td>
+              <td>
+                <a class="btn btn-link btn-sm" (click)="contapagar(item.id)">
+                    <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+            </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</section>

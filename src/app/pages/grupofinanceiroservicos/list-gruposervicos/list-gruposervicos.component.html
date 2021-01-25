@@ -1,0 +1,90 @@
+<section class="content-header">
+  <h1>
+      Lista Grupo Financeiro Serviços
+  </h1>
+  <!--<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Examples</a></li>
+      <li class="breadcrumb-item active">Blank page</li>
+  </ol>
+-->
+</section>
+
+<section class="content">
+  <!-- Default box -->
+  <div class="box">
+      <div class="box-header with-border">
+          <h3 class="box-title">Lista</h3>
+          <div class="form-group form-inline form-element">
+              Pesquisar: <input nz-input placeholder="Pesquisar" class="form-control form-control-sm ml-2 " name="search" [(ngModel)]="searchValue" #search (keyup)="debounceTimeSearch()">
+
+          </div>
+          <div class="box-tools pull-right">
+              <button class="btn btn-outline-primary mb-2 mr-2" [routerLink]="['/gruposervico', '0']" routerLinkActive="router-link-active">
+        Adicionar
+      </button>
+          </div>
+      </div>
+
+      <nz-table #nzTable [nzData]="listOfDisplayhistoricoPadrao" nzTableLayout="fixed" nzSize="small" nzBordered [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+          <thead>
+              <tr>
+                  <th nzWidth="5%">Index </th>
+                  <th> Nome </th>
+                  <th nzWidth="5%">Editar</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let data of nzTable.data ; let i=index">
+                  <td nzWidth="5%">{{i +1 }} </td>
+                  <td>{{ data.name }}</td>
+                  <td nzWidth="5%">
+                      <a class="btn btn-link btn-sm" [routerLink]="['/gruposervico', data.id]" routerLinkActive="router-link-active">
+                          <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                  </td>
+              </tr>
+          </tbody>
+      </nz-table>
+
+
+  </div>
+</section>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title">Banco Movimento</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body ">
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="form-group">
+                  <label for="my-input1">Descrição</label>
+                  <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="historicoPadrao.name" type="text" name="street" nz-input placeholder="Descrição">
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <div class="form-group">
+                  <label for="my-select">Status</label>
+
+                  <nz-select nzShowSearch nzPlaceHolder="" [(ngModel)]="historicoPadrao.centrocusto.id" class=" form-control form-control-sm">
+                      <nz-option [nzLabel]="item.name" [nzValue]="item.id" *ngFor="let item of centrocustos"></nz-option>
+                  </nz-select>
+
+              </div>
+          </div>
+
+      </div>
+
+
+  </div>
+
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+      <button type="button" class="btn btn-danger" *ngIf="historicoPadrao.name!=null && historicoPadrao.name!=null && historicoPadrao.centrocusto.id!=null && historicoPadrao.centrocusto.id!=null" (click)="modal.close('Ok click')">Ok</button>
+  </div>
+</ng-template>

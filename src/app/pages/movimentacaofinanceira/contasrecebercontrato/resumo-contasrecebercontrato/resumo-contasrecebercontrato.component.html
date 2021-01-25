@@ -1,0 +1,98 @@
+<section class="content-header">
+  <h1>
+    Digital Financeiro
+  </h1>
+  <!--<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Examples</a></li>
+        <li class="breadcrumb-item active">Blank page</li>
+	  </ol>
+	-->
+</section>
+
+<section class="content">
+  <!-- Default box -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="box">
+        <div class="box-header with-border my-custom-scrollbarauto">
+          <h3 class="box-title">Lista Contas Receber Contrato</h3>
+          <nz-table style="font-size: 70%;" #smallTable nzSize="small" [nzData]="resumoAnual" [nzBordered]=true>
+            <thead>
+              <tr>
+                <th nzWidth="150px">Histórico</th>
+                <th>Anteriores</th>
+                <th>Atual</th>
+                <th>Total Receber</th>
+                <th>Jan</th>
+                <th>Fev</th>
+                <th>Mar</th>
+                <th>Abr</th>
+                <th>Mai</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Ago</th>
+                <th>Set</th>
+                <th>Out</th>
+                <th>Nov</th>
+                <th>Dez</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let data of resumoAnual">
+                <tr>
+                   <td><a>{{ data.historico }}</a> </td>
+                  <td>{{ data.saldoanterior | currency:'BRL'}}</td>
+                  <td>{{ data.saldoExercioAtual | currency:'BRL'}}</td>
+                  <td>{{ data.total | currency:'BRL'}}</td>
+                  <td>{{ data.jan | currency:'BRL'}}</td>
+                  <td>{{ data.fev | currency:'BRL'}}</td>
+                  <td>{{ data.mar | currency:'BRL'}}</td>
+                  <td>{{ data.abl | currency:'BRL'}}</td>
+                  <td>{{ data.mai | currency:'BRL'}}</td>
+                  <td>{{ data.jun | currency:'BRL'}}</td>
+                  <td>{{ data.jul | currency:'BRL'}}</td>
+                  <td>{{ data.ago | currency:'BRL'}}</td>
+                  <td>{{ data.set | currency:'BRL'}}</td>
+                  <td>{{ data.out | currency:'BRL'}}</td>
+                  <td>{{ data.nov | currency:'BRL'}}</td>
+                  <td>{{ data.dez | currency:'BRL'}}</td>
+                </tr>
+          </ng-container>
+          </tbody>
+          <tfoot>
+            <tr>
+             <th>Totais</th>
+              <th>{{ ant | currency:'BRL'}}</th>
+              <th>{{ atual| currency:'BRL'}}</th>
+              <th>{{ totalPagar| currency:'BRL'}}</th>
+              <th>{{ jan | currency:'BRL'}}</th>
+              <th>{{ fev | currency:'BRL'}}</th>
+              <th>{{ mar | currency:'BRL'}}</th>
+              <th>{{ abl | currency:'BRL'}}</th>
+              <th>{{ mai | currency:'BRL'}}</th>
+              <th>{{ jun | currency:'BRL'}}</th>
+              <th>{{ jul | currency:'BRL'}}</th>
+              <th>{{ ago | currency:'BRL'}}</th>
+              <th>{{ set | currency:'BRL'}}</th>
+              <th>{{ out | currency:'BRL'}}</th>
+              <th>{{ nov | currency:'BRL'}}</th>
+              <th>{{ dez | currency:'BRL'}}</th>
+            </tr>
+          </tfoot>
+          </nz-table>
+        </div>
+        Total a Receber: {{totalPagar | currency:'BRL' }}
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <full-calendar [options]="calendarOptions"  (click)="quitar($event)"></full-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>

@@ -1,0 +1,113 @@
+<section class="content-header">
+    <h1>
+        Lista Centro Custos
+    </h1>
+    <!--<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Examples</a></li>
+        <li class="breadcrumb-item active">Blank page</li>
+	  </ol>
+	-->
+</section>
+
+<section class="content">
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Lista</h3>
+
+            <div class="form-group form-inline form-element">
+                Pesquisar: <input nz-input placeholder="Pesquisar" class="form-control form-control-sm ml-2 " name="search" [(ngModel)]="searchValue" #search (keyup)="debounceTimeSearch()">
+
+            </div>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-outline-primary btn-sm"   (click)="printview()">
+                <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir
+     </button>
+                <button class="btn btn-outline-primary mb-2 mr-2" (click)="newcentrocusto(content)">
+          Adicionar
+        </button>
+            </div>
+        </div>
+
+        <nz-table #nzTable [nzData]="listOfDisplaycentrocusto" nzTableLayout="fixed" nzSize="small" nzBordered [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+            <thead>
+                <tr>
+                    <th nzWidth="5%">Index </th>
+                    <th nzCustomFilter>
+                        Nome
+                        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                            <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th>Saldo </th>
+                    <th>Saldo Pagar</th>
+                    <th>Saldo Receber</th>
+                    <th>Saldo Disponivel</th>
+                    <th nzWidth="5%">Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of nzTable.data ; let i=index">
+                    <td nzWidth="30%">{{i +1 }} </td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.saldo | currency:'R$' }}</td>
+                    <td>{{ data.saldoPagar | currency:'R$' }}</td>
+                    <td>{{ data.saldoReceber | currency:'R$' }}</td>
+                    <td>{{ data.saldoDisponivel | currency:'R$' }}</td>
+                    <td>
+                        <a class="btn btn-link btn-sm" (click)="editcentrocusto(data,content)">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+                <div class="search-box">
+                    <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                    <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+            Search
+          </button>
+                    <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                </div>
+            </div>
+        </nz-dropdown-menu>
+
+    </div>
+</section>
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Banco Movimento</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="my-input1">Descrição</label>
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="centrocusto.name" type="text" name="street" nz-input placeholder="Descrição">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="my-input1">Saldo</label>
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="centrocusto.saldo" type="text" name="text" nz-input name="street" nz-input placeholder="Saldo" currencyMask [options]="customCurrencyMaskConfig">
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        <button type="button" class="btn btn-danger" *ngIf="centrocusto.name!=null && centrocusto.name!=null && centrocusto.saldo!=null && centrocusto.saldo!=null" (click)="modal.close('Ok click')">Ok</button>
+    </div>
+</ng-template>

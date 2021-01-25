@@ -1,0 +1,71 @@
+<section class="content-header">
+    <h1>Lista Clientes</h1>
+    <!--<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Examples</a></li>
+        <li class="breadcrumb-item active">Blank page</li>
+	  </ol>
+	-->
+</section>
+
+<section class="content">
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Lista</h3>
+            <div class="form-group form-inline form-element">
+                Pesquisar: <input nz-input placeholder="Pesquisar" class="form-control form-control-sm ml-2 " name="search" [(ngModel)]="searchValue" #search (keyup)="debounceTimeSearch()">
+
+            </div>
+            <div class="box-tools pull-right">
+                <button class="btn btn-outline-primary mb-2 mr-2" [routerLink]="['/clientes','0']">
+          Adicionar
+        </button>
+            </div>
+        </div>
+
+        <nz-table #nzTable [nzData]="listOfDisplayPessoas" nzTableLayout="fixed" nzSize="small" nzBordered [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+
+            <thead>
+                <tr>
+                    <th nzCustomFilter>
+                        Nome
+                        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                            <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th>CNPJ</th>
+                    <th>Email</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of nzTable.data">
+                    <td>
+                        <nz-avatar [nzShape]="'square'" [nzSize]="20" [nzSrc]="data.avatarView || 'assets/imgs/avatar-blank.png'"></nz-avatar>
+
+                        {{ data.name }}</td>
+                    <td>{{ data.cpfOnCnpj }}</td>
+                    <td>{{ data.email }}</td>
+                    <td>
+
+                        <a class="btn btn-link btn-sm" [routerLink]="['/clientes', data.id ]">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+                <div class="search-box">
+                    <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                    <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+            Search
+          </button>
+                    <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                </div>
+            </div>
+        </nz-dropdown-menu>
+
+    </div>
+</section>

@@ -1,0 +1,247 @@
+<section class="content-header">
+    <h1>
+        Editar Fornecedores
+    </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/fornecedores']" routerLinkActive="router-link-active"><i
+                    class="fa fa-dashboard"></i> Cadastro fornecedores</a></li>
+        <li class="breadcrumb-item"><a>Editar</a></li>
+    </ol>
+
+</section>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+
+            <input type="file" id="imgupload" style="display:none" accept="image/*" (change)="onUploadMainImage($event)" />
+            <div class="row">
+                <div class="col-md-12 col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="profile-widgets py-3">
+
+                                <div class="text-center">
+                                    <div class="">
+                                        <nz-avatar [nzShape]="'square'" [nzSize]="128" [nzSrc]="company.avatarView || 'assets/imgs/avatar-blank.png'" (click)="onClickImagePrincipal()"></nz-avatar>
+
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <a class="text-dark font-weight-medium font-size-16">{{company.name}}</a>
+
+
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <a class="text-dark font-weight-medium font-size-16">{{company.cpfOnCnpj}}</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12 col-xl-9">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <nz-spin [nzSpinning]="isSpinning" nzSize="large" nzDelay="500" nzTip="Carregando..." nzSimple="true"> </nz-spin>
+                            <button class="btn btn-outline-primary btn-sm  pull-right" (click)="save()" style="float:right" type="button"><i nz-icon nzType="save" nzTheme="outline"></i> Salvar
+								Dados</button>
+
+                            <h4 class="card-title">Cadastro Fornecedor</h4>
+                            <p class="card-title-desc">Dados Cadastrais da Fornecedor</p>
+                            <hr />
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="my-input">Nome</label>
+                                        <input styleClass="md-inputfield" nz-input id="my-input" class=" form-control form-control-sm" type="text" name="name1" [(ngModel)]="company.name">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label for="exampleInputEmail1">CNPJ</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" nz-input name="cnpj" class="form-control form-control-sm" placeholder=" CNPJ" [(ngModel)]="company.cpfOnCnpj" aria-label="CNPJ" mask="00.000.000/0000-00" id="input-mask">
+
+                                        <div class="input-group-append" *ngIf="company.cpfOnCnpj.length>=14">
+                                            <button class="btn btn-outline-primary btn-sm" (click)="getEndereco()" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="my-select">Email</label>
+                                        <input nz-input class=" form-control form-control-sm" [(ngModel)]="company.email" type="text" name="email1">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="my-select">Nome Fantasia</label>
+                                        <input nz-input [(ngModel)]="company.nameFantasia" id=" nzSearch" name=" nzSearch" placeholder="Nome Fantasia" class=" form-control form-control-sm">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="font-size: 80%;">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="my-input">Código Atividade: {{company.code}}</label>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="my-input">Tipo Atividade: {{company.atividade_principal}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="my-input">Natureza Jurídica: {{company.natureza_juridica}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="my-input">Capital Social: {{company.capital_social}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="my-select">Ativo</label>
+                                        <select id="my-select" class=" form-control form-control-sm" name="ativo" nz-input [(ngModel)]="company.status">
+											<option value="Ativo">Ativo</option>
+											<option value="Inativo">Inativo</option>
+										</select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="my-input1">Telefone</label>
+                                        <input class=" form-control form-control-sm" nz-input mask="(00)00000 0000" [(ngModel)]="company.telefone" type="text" name="tel">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box pb-2">
+                                <div class="float-right d-none d-md-inline-block">
+
+                                </div>
+
+                                <h4 class="header-title mb-3">Endereço</h4>
+                                <hr>
+                                <div dir="ltr">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label for="exampleInputEmail1">CEP</label>
+                                            <div class="input-group mb-3">
+                                                <input [(ngModel)]="company.enderecoPrincipal.zipCode" nz-input name="cep" placeholder="CEP" class="form-control form-control-sm" mask="00.000-000">
+
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary btn-sm" type="button" (click)="consultacep()"><i class="fa fa-search"
+															aria-hidden="true"></i></button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-7">
+                                            <div class="form-group">
+                                                <label for="my-input1">Logradouro</label>
+                                                <input class="form-control form-control-sm" [(ngModel)]="company.enderecoPrincipal.street" type="text" name="text" nz-input placeholder="Logradouro">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="my-input">No.</label>
+                                                <input [(ngModel)]="company.enderecoPrincipal.nro" nz-input name="nro" class="form-control form-control-sm" placeholder="Nro" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="my-input">Complemento</label>
+                                                <input [(ngModel)]="company.enderecoPrincipal.complement" nz-input name="complement" class="form-control form-control-sm" placeholder="Complemento">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="my-input">Bairro</label>
+                                                <input [(ngModel)]="company.enderecoPrincipal.bairro" nz-input name="bairro" class="form-control form-control-sm" placeholder="Bairro" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="my-input">Cidade</label>
+                                                <input [(ngModel)]="company.enderecoPrincipal.city" nz-input name="city" class="form-control form-control-sm" placeholder="Cidade" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label for="my-input">UF</label>
+                                                <input [(ngModel)]="company.enderecoPrincipal.state" nz-input name="state" class="form-control form-control-sm" placeholder="UF" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-box pb-2">
+                                <div class="float-right d-none d-md-inline-block">
+
+
+                                    <h4 class="header-title mb-3">Contatos</h4>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="my-input1">Nome</label>
+                                                <input nz-input class="form-control form-control-sm" [(ngModel)]="company.contatoPrincipal.name" type="text" name="text" nz-input placeholder="Nome">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="my-input1">Função</label>
+                                                <input nz-input class="form-control form-control-sm" [(ngModel)]="company.contatoPrincipal.function" type="text" name="text" nz-input placeholder="Função">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="my-input1">Telefone</label>
+                                                <input nz-input class="form-control form-control-sm" [(ngModel)]="company.contatoPrincipal.telefone" type="text" name="text" mask="(00)00000 0000" nz-input placeholder="Telefone">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="my-input1">Email</label>
+                                                <input nz-input class="form-control form-control-sm" [(ngModel)]="company.contatoPrincipal.email" type="email" name="text" nz-input placeholder="Nome">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

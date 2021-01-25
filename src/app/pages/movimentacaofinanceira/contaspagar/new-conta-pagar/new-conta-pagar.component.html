@@ -1,0 +1,72 @@
+<section class="content-header">
+  <h1>
+    Digital Financeiro
+  </h1>
+  <!--<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Examples</a></li>
+        <li class="breadcrumb-item active">Blank page</li>
+	  </ol>
+	-->
+</section>
+
+<section class="content">
+  <!-- Default box -->
+
+  <div class="box">
+    <div class="box-header with-border my-custom-scrollbarauto">
+      <h3 class="box-title">Nova Contas Pagar</h3>
+      <button type="button" class="btn btn-outline-primary btn-sm" style="float:right" (click)="oncreate()" *ngIf="contasPagarSaida.historico.id!=null">
+        <i nz-icon nzType="copy" nzTheme="outline"></i>
+       Finalizar
+    </button>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="form-group">
+          <label for="my-select">Descrição pagamento</label>
+          <input nz-input class=" form-control form-control-sm" [(ngModel)]="contasPagarSaida.name" type="text"
+            name="email1">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Grupo Saída</label>
+          <br>
+          <nz-select class=" form-control form-control-sm  " nzShowSearch nzAllowClear
+            [(ngModel)]="contasPagarSaida.historico.id" nzPlaceHolder="Selecione um Historico">
+            <nz-option *ngFor="let item of historicoSaida" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Vencimento</label>
+          <nz-date-picker class="limpar form-control  form-control-sm " [nzFormat]="dateFormat"
+            [(ngModel)]="contasPagarSaida.dataVencimento">
+          </nz-date-picker>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="my-select">Parcela</label>
+          <input nz-input class=" form-control form-control-sm" [(ngModel)]="contasPagarSaida.parcela" type="text"
+            currencyMask [options]="customCurrencyMaskConfig">
+
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label for="my-select">Valor</label>
+          <input nz-input [(ngModel)]="contasPagarSaida.valor" id=" nzSearch" name=" nzSearch" placeholder="Código "
+            class=" form-control form-control-sm" currencyMask [options]="customMaskConfig">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

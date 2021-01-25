@@ -1,0 +1,61 @@
+<section class="content-header">
+    <h1>
+        Lista Contratos
+    </h1>
+</section>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Lista</h3>
+            <div class="form-group form-inline form-element">
+                Pesquisar: <input nz-input placeholder="Pesquisar" class="form-control form-control-sm ml-2 " name="search" [(ngModel)]="searchValue" #search (keyup)="debounceTimeSearch()">
+
+            </div>
+            <div class="box-tools pull-right">
+
+                <button class="btn btn-outline-primary mb-2 mr-2" [routerLink]="['/novocontratos', '0']" routerLinkActive="router-link-active">Adicionar</button>
+
+            </div>
+
+        </div>
+
+        <div class="box-body  ">
+
+
+            <nz-table #nzTable [nzData]="listOfDisplaycontratos" nzTableLayout="fixed" nzSize="small" nzBordered [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+                <thead>
+                    <tr>
+                        <th nzWidth="5%">Index </th>
+                        <th>Nome</th>
+                        <th>Cliente</th>
+                        <th>Valor</th>
+                        <th nzWidth="5%">Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of nzTable.data ; let i=index">
+                        <td>{{i+1}}</td>
+                        <td><a [routerLink]="['/contratos', item.id]" routerLinkActive="router-link-active">{{item.name}} </a></td>
+                        <td>{{item.cpfOnCnpj}} </td>
+                        <td>{{item.email }} </td>
+                        <td>
+                            <a class="btn btn-link btn-sm" [routerLink]="['/contratos', item.id]" routerLinkActive="router-link-active">
+                                <i nz-icon nzType="edit" nzTheme="outline"></i> </a>
+                        </td>
+
+
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+        <!-- /.box-body -->
+
+        <!-- /.box-footer-->
+    </div>
+    <!-- /.box -->
+
+</section>

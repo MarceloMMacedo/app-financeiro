@@ -1,0 +1,132 @@
+<section class="content-header">
+  <h1>
+    Digital Financeiro
+  </h1>
+  <!--<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Examples</a></li>
+        <li class="breadcrumb-item active">Blank page</li>
+	  </ol>
+	-->
+</section>
+
+<section class="content">
+  <!-- Default box -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="box">
+
+        <div class="box-header with-border my-custom-scrollbarauto">
+
+          <button class="btn btn-outline-primary btn-sm  pull-right  " style="float:right" type="button"
+            [routerLink]="['/contaspagar']" routerLinkActive="router-link-active"><i nz-icon nzType="new"
+              nzTheme="outline"></i> Nova Conta a Pagar</button>
+          <h3 class="box-title  ">Lista Contas Pagar</h3>
+          <!--<button type="button" class="btn btn-outline-primary btn-sm" (click)="printview()">
+            <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir
+          </button>
+        -->
+          <nz-table style="margin-top: 10px;" #smallTable nzSize="small" [nzData]="resumo.resumoPagar"
+            [nzBordered]=true>
+
+            <thead>
+              <tr>
+                <th>Exercício</th>
+                <th>A Pagar</th>
+                <th>Jan</th>
+                <th>Fev</th>
+                <th>Mar</th>
+                <th>Abr</th>
+                <th>Mai</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Ago</th>
+                <th>Set</th>
+                <th>Out</th>
+                <th>Nov</th>
+                <th>Dez</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of resumo.resumoPagar">
+                <td><a [routerLink]="['/resumocontaspagar',  data.exercicio]" routerLinkActive="router-link-active"> {{
+                    data.exercicio }}</a> </td>
+                <td>{{ data.total | currency:'BRL'}}</td>
+                <td>{{ data.jan | currency:'BRL'}}</td>
+                <td>{{ data.fev | currency:'BRL'}}</td>
+                <td>{{ data.mar | currency:'BRL'}}</td>
+                <td>{{ data.abl | currency:'BRL'}}</td>
+                <td>{{ data.mai | currency:'BRL'}}</td>
+                <td>{{ data.jun | currency:'BRL'}}</td>
+                <td>{{ data.jul | currency:'BRL'}}</td>
+                <td>{{ data.ago | currency:'BRL'}}</td>
+                <td>{{ data.set | currency:'BRL'}}</td>
+                <td>{{ data.out | currency:'BRL'}}</td>
+                <td>{{ data.nov | currency:'BRL'}}</td>
+                <td>{{ data.dez | currency:'BRL'}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+        Total a Pagar: {{totalPagar | currency:'R$' }}
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="box">
+
+        <div class="box-header with-border my-custom-scrollbarauto">
+          <h3 class="box-title">Lista Contas Receber Contrato</h3>
+          <div  >
+
+            <div  >
+              <nz-table #smallTable nzSize="small" [nzData]="resumo.resumoReceberContrato" [nzBordered]=true>
+
+                <thead>
+                  <tr>
+                    <th>Exercício</th>
+                    <th>A Receber</th>
+                    <th>Jan</th>
+                    <th>Fev</th>
+                    <th>Mar</th>
+                    <th>Abr</th>
+                    <th>Mai</th>
+                    <th>Jun</th>
+                    <th>Jul</th>
+                    <th>Ago</th>
+                    <th>Set</th>
+                    <th>Out</th>
+                    <th>Nov</th>
+                    <th>Dez</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of resumo.resumoReceberContrato">
+                    <td><a [routerLink]="['/resumocontasrecebercontrato',  data.exercicio]"
+                        routerLinkActive="router-link-active"> {{ data.exercicio }}</a> </td>
+                    <td>{{ data.total | currency:'BRL'}}</td>
+                    <td>{{ data.jan | currency:'BRL'}}</td>
+                    <td>{{ data.fev | currency:'BRL'}}</td>
+                    <td>{{ data.mar | currency:'BRL'}}</td>
+                    <td>{{ data.abl | currency:'BRL'}}</td>
+                    <td>{{ data.mai | currency:'BRL'}}</td>
+                    <td>{{ data.jun | currency:'BRL'}}</td>
+                    <td>{{ data.jul | currency:'BRL'}}</td>
+                    <td>{{ data.ago | currency:'BRL'}}</td>
+                    <td>{{ data.set | currency:'BRL'}}</td>
+                    <td>{{ data.out | currency:'BRL'}}</td>
+                    <td>{{ data.nov | currency:'BRL'}}</td>
+                    <td>{{ data.dez | currency:'BRL'}}</td>
+                  </tr>
+                </tbody>
+              </nz-table>
+            </div>
+            Total a Receber: {{totalContrato | currency:'BRL' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--<full-calendar [options]="calendarOptions"></full-calendar>
+    -->
+</section>
