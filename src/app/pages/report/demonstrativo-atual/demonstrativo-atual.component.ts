@@ -146,7 +146,25 @@ export class DemonstrativoAtualComponent implements OnInit {
       this.spinner.hide();
     }, 1000);
   }
+  printlivrocaixa() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.movimentoFinanceiroService.getviewlivrocaixa(this.datainicio,this.datafim).subscribe(
+        (response) => {
+          console.log(response);
+          const file = new Blob([response], { type: 'application/pdf' });
 
+          console.log(file);
+          const fileURL = URL.createObjectURL(file);
+
+          console.log(fileURL);
+          window.open(fileURL);
+
+
+        });
+      this.spinner.hide();
+    }, 1000);
+  }
   printvieexercicio(exercicio) {
     this.spinner.show();
     setTimeout(() => {
@@ -189,17 +207,23 @@ export class DemonstrativoAtualComponent implements OnInit {
     this.exercicio = exercicio;
 
 
-    //this.demosntrativoFinanceiroDto= await  this.movimentoFinanceiroService.demonstrativoatualperiodo(exercicio, mes);
-    /*.subscribe(
-      rest => {
-        console.log(rest);
-        this.demosntrativoFinanceiroDto = rest;
+   await  this.movimentoFinanceiroService.getviewsinteticoperiodo(exercicio, mes)
+ .subscribe(
+  (response) => {
+    console.log(response);
+    const file = new Blob([response], { type: 'application/pdf' });
 
-        this.spinner.hide();
+    console.log(file);
+    const fileURL = URL.createObjectURL(file);
+
+    console.log(fileURL);
+    window.open(fileURL);
+
+    this.spinner.hide();
       },
       error => { }
 
-    );*/
+    ); 
 
 
 

@@ -61,7 +61,7 @@ export class ReporMovimentoFinanceiroService {
   }
   getviewsinteticoperiodo(exercico: number, mes: number): any {
     const httpOptions = {
-      responseType: 'arraybuffer' as 'json'
+      responseType: 'arraybuffer' as 'json' 
     };
     return this.http.get<any>(`${API_CONFIG.repormovimentofinanceiro}/printdemonstrativoperiodo?exercico=${exercico}&mes=${mes}`, httpOptions);
   }
@@ -84,5 +84,10 @@ export class ReporMovimentoFinanceiroService {
     return listaDados;
   }
 
-
+  getviewlivrocaixa(datainicio: Date, datafim: Date): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json' 
+    };
+    return this.http.get<any>(`${API_CONFIG.repormovimentofinanceiro}/livrocaixa?datainicio=${datainicio}&datafim=${datafim}`, httpOptions);
+  }
 }
