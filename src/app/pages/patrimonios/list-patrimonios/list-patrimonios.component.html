@@ -26,7 +26,18 @@
 
             </div>
             <div class="box-tools pull-right">
-                <button class="btn btn-outline-primary mb-2 mr-2" (click)="newpatrimonio(mynew)">Adicionar</button>
+                <a nz-dropdown [nzDropdownMenu]="menu">
+                    Atividade
+                    <i nz-icon nzType="down"></i>
+                  </a>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu nzSelectable>
+                        <li nz-menu-item (click)="newpatrimonio(mynew)"><i nz-icon nzType="diff" nzTheme="outline"></i>Adicionar</li>
+                        <li nz-menu-item> <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir</li>
+                        <li nz-menu-item (click)="sendmail(sendmailmodal)"><i nz-icon nzType="share-alt" nzTheme="outline"></i>Enviar por email</li>
+                    </ul>
+                </nz-dropdown-menu>
+
             </div>
             <div class="box-body my-custom-scrollbarauto">
 
@@ -34,12 +45,10 @@
                 <nz-table #nzTable [nzData]="listOfDisplayPatrimonios" nzTableLayout="fixed" nzTableLayout="fixed" nzSize="small" nzBordered [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
                     <thead>
                         <tr>
-                            <th>Index </th>
+                            <th abbr="">Index </th>
                             <th nzCustomFilter>
                                 Nome
-                                <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
-                                    <i nz-icon nzType="search"></i>
-                                </nz-filter-trigger>
+
                             </th>
                             <th>Cod. Patrimonio</th>
                             <th>Editar</th>
@@ -105,4 +114,23 @@
     </div>
 </ng-template>
 
+<ng-template #sendmailmodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Enviar Email</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <app-model-email> </app-model-email>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">
+      Cancelar
+    </button>
+        <button type="button" *ngIf="patrimonio.name.length!=0" ngbAutofocus class="btn btn-danger" (click)="modal.close('onconsole()')">
+      <i class="fas fa-check-double"></i> Confirmar
+    </button>
+    </div>
+</ng-template>
 <div class="printdiv"></div>

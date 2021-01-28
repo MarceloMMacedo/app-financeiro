@@ -111,5 +111,29 @@ export class ListPatrimoniosComponent implements OnInit {
       this.spinner.hide();
     }, 200);
     }
+    pdf(){
+      
+    }
+
+
+    sendmail(content) {
+      this.patrimonio = {} as Patrimonio;
+      this.patrimonio.name='novo patrimonio';
+      this.patrimonio.status='Ativo';
+      this.patrimonio.statuslocacao='Ativo';
+      this.patrimonio.modelo = {} as Modelo;
+      this.modalService.open(content, { centered: true }).result.then(
+        (result) => {
+          this.patrimoniosService.savenew(this.patrimonio).subscribe(
+            rest => {
+              this.router.navigate(['/patrimonios', rest.body]);
+            }
+          )
+        }, (reason) => {
+        });
+   
+    }
+  
+
 }
 

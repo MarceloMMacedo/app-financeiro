@@ -23,9 +23,7 @@ export class PatrimoniosService {
   findById(id: string): Observable<Patrimonio> {
     return this.http.get<Patrimonio>(`${API_CONFIG.patrimonios}/${id}`);
   }
-
-
-
+  
   getAll(): Observable<BaseDto[]> {
     return this.http.get<BaseDto[]>(`${API_CONFIG.patrimonios}/baseall`);
   }
@@ -133,7 +131,16 @@ export class PatrimoniosService {
     };
     return this.http.get<any>(`${API_CONFIG.baseUrl}/print/viewpatrimonio`, httpOptions);
   }
+  pdfAll(){
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json' 
+    };
+   // return this.http.get<any>(`${API_CONFIG.repormovimentofinanceiro}/livrocaixa?datainicio=${datainicio}&datafim=${datafim}`, httpOptions);
+  }
+ 
+  sendMail(){
 
+}
 
 }
 

@@ -89,6 +89,10 @@ import { NewContaPagarComponent } from './pages/movimentacaofinanceira/contaspag
 import { EditContaPagarComponent } from './pages/movimentacaofinanceira/contaspagar/edit-conta-pagar/edit-conta-pagar.component';
 import { IndexDemostrativoComponent } from './pages/demonstrativofinanceiro/index-demostrativo/index-demostrativo.component';
 import { DemonstrativoAtualComponent } from './pages/report/demonstrativo-atual/demonstrativo-atual.component';
+ 
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ModelEmailComponent } from './pages/email/model-email/model-email.component';
+
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
@@ -151,6 +155,7 @@ registerLocaleData(pt);
     EditContaPagarComponent,
     IndexDemostrativoComponent,
     DemonstrativoAtualComponent,
+    ModelEmailComponent, 
   ],
   imports: [
     BrowserModule, FormsModule,
@@ -171,7 +176,8 @@ registerLocaleData(pt);
     NgxCurrencyModule,
     NgWizardModule.forRoot(ngWizardConfig),
     NgxChartsModule,
-    FullCalendarModule
+    FullCalendarModule,
+      AngularEditorModule
 
   ],
   providers: [{ provide: NZ_I18N, useValue: pt_BR },
