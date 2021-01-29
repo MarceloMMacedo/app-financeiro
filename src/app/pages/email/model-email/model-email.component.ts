@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DestinationEmail } from './../../../models/report/destination-email';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
@@ -7,9 +8,10 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrls: ['./model-email.component.css']
 })
 export class ModelEmailComponent implements OnInit {
-  name = 'Angular 6';
-  htmlContent = '';
-
+  @Input() name;
+  @Output() htmlContent  ;
+  @Output() destinatariemailemitter= new EventEmitter<DestinationEmail>();
+  destinationEmail:DestinationEmail;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -21,7 +23,7 @@ export class ModelEmailComponent implements OnInit {
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
       ['bold']
-      ],
+    ],
     customClasses: [
       {
         name: "quote",
@@ -41,6 +43,10 @@ export class ModelEmailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.destinationEmail={} as DestinationEmail;
   }
-
+  send() {
+    console.log('this-' + this.destinationEmail.html);
+    this.destinatariemailemitter.emit(this.destinationEmail);
+  }
 }

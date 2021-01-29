@@ -34,7 +34,7 @@
                     <ul nz-menu nzSelectable>
                         <li nz-menu-item (click)="newpatrimonio(mynew)"><i nz-icon nzType="diff" nzTheme="outline"></i>Adicionar</li>
                         <li nz-menu-item> <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir</li>
-                        <li nz-menu-item (click)="sendmail(sendmailmodal)"><i nz-icon nzType="share-alt" nzTheme="outline"></i>Enviar por email</li>
+                        <li nz-menu-item (click)="showModal()"><i nz-icon nzType="share-alt" nzTheme="outline"></i>Enviar por email</li>
                     </ul>
                 </nz-dropdown-menu>
 
@@ -122,15 +122,26 @@
     </button>
     </div>
     <div class="modal-body">
-        <app-model-email> </app-model-email>
+        <app-model-email [name]="'Email de Parimônio'" (send)="modal.close($event)"> </app-model-email>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">
       Cancelar
     </button>
-        <button type="button" *ngIf="patrimonio.name.length!=0" ngbAutofocus class="btn btn-danger" (click)="modal.close('onconsole()')">
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('onconsole()')">
       <i class="fas fa-check-double"></i> Confirmar
     </button>
     </div>
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzContent]="tplContent" [nzFooter]="tplFooter">
+    <ng-container *nzModalContent>
+    </ng-container>
+</nz-modal>
+<ng-template #tplContent let-params>
+    <app-model-email [name]="'Email de Parimônio'" (destinatariemailemitter)="sendmail($event)"> </app-model-email>
+</ng-template>
+<ng-template #tplFooter let-ref="modalRef">
+
 </ng-template>
 <div class="printdiv"></div>

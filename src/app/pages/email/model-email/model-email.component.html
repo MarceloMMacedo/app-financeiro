@@ -1,26 +1,21 @@
 <div class="container">
+    <h3>{{name}} </h3>
     <div class="form-group">
-        <input type="email" class="form-control" placeholder="To">
+        <input type="email" class="form-control" placeholder="To" [(ngModel)]="destinationEmail.to">
     </div>
 
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="Subject">
+        <input type="text" class="form-control" placeholder="Subject" [(ngModel)]="destinationEmail.messageSubject">
     </div>
     <div class="form-group">
 
-        <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
-        <h5 class="html-header">HTML Output</h5>
-        <!--<div class="html">
-            {{ htmlContent }}
-        </div>
-    -->
+        <angular-editor [(ngModel)]="destinationEmail.html" [config]="config"></angular-editor>
+
     </div>
 
     <div class="form-group m-b-0">
         <div class="text-right">
-            <button type="button" class="btn btn-success waves-effect waves-light m-r-5"><i class="mdi mdi-content-save-outline"></i></button>
-            <button type="button" class="btn btn-success waves-effect waves-light m-r-5"><i class="mdi mdi-delete"></i></button>
-            <button class="btn btn-primary waves-effect waves-light"> <span>Send</span> <i class="mdi mdi-send ml-2"></i> </button>
+            <button class="btn btn-primary waves-effect waves-light" (click)="send()"> <span>Send</span> <i class="mdi mdi-send ml-2"></i> </button>
         </div>
     </div>
 

@@ -8,6 +8,7 @@ import { Pages } from '../models/pages';
 import { Patrimonio } from '../models/patrimonio';
 import { BaseDto } from '../models/dto/base-dto';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DestinationEmail } from "../models/report/destination-email";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class PatrimoniosService {
   findById(id: string): Observable<Patrimonio> {
     return this.http.get<Patrimonio>(`${API_CONFIG.patrimonios}/${id}`);
   }
-  
+
   getAll(): Observable<BaseDto[]> {
     return this.http.get<BaseDto[]>(`${API_CONFIG.patrimonios}/baseall`);
   }
@@ -133,13 +134,14 @@ export class PatrimoniosService {
   }
   pdfAll(){
     const httpOptions = {
-      responseType: 'arraybuffer' as 'json' 
+      responseType: 'arraybuffer' as 'json'
     };
    // return this.http.get<any>(`${API_CONFIG.repormovimentofinanceiro}/livrocaixa?datainicio=${datainicio}&datafim=${datafim}`, httpOptions);
   }
- 
-  sendMail(){
 
+   sendMail(e:DestinationEmail){
+     console.log(e);
+    return this.http.put(`${API_CONFIG.patrimonios}/sendmail`, e);
 }
 
 }

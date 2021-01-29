@@ -1,3 +1,4 @@
+import { DestinationEmail } from './../../../models/report/destination-email';
 import { Component, OnInit } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -10,7 +11,7 @@ import { Patrimonio } from 'src/app/models/patrimonio';
 import { PatrimoniosService } from 'src/app/services/patrimonios.service';
 import { ModeloService } from 'src/app/services/modelo.service';
 import { Modelo } from 'src/app/models/modelo';
-import { BaseDto } from 'src/app/models/dto/base-dto';  
+import { BaseDto } from 'src/app/models/dto/base-dto';
 
 @Component({
   selector: 'app-list-patrimonios',
@@ -48,6 +49,8 @@ export class ListPatrimoniosComponent implements OnInit {
   visible = false;
   listOfDisplayPatrimonios = [] as BaseDto[];
 
+  destinatariemail:DestinationEmail;
+  isVisible = false;
   constructor(
     private router: Router,
     private modalService: NgbModal,
@@ -59,6 +62,7 @@ export class ListPatrimoniosComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.destinatariemail={} as DestinationEmail;
     this.patrimonio = {} as Patrimonio;
     this.patrimonio.modelo = {} as Modelo;
     this.patrimoniosService.getAll().subscribe(
@@ -85,7 +89,7 @@ export class ListPatrimoniosComponent implements OnInit {
         )
       }, (reason) => {
       });
- 
+
   }
 
   searchEntry$: Subject<string> = new Subject<string>();
@@ -94,7 +98,7 @@ export class ListPatrimoniosComponent implements OnInit {
     this.searchEntry$.next(this.searchValue);
     this.searchEntry$
       .pipe(debounceTime(700))
-      .subscribe((s) => {  
+      .subscribe((s) => {
         this.search();
       })
   }
@@ -112,28 +116,36 @@ export class ListPatrimoniosComponent implements OnInit {
     }, 200);
     }
     pdf(){
-      
+
     }
 
 
     sendmail(content) {
-      this.patrimonio = {} as Patrimonio;
+     /* this.patrimonio = {} as Patrimonio;
       this.patrimonio.name='novo patrimonio';
       this.patrimonio.status='Ativo';
       this.patrimonio.statuslocacao='Ativo';
-      this.patrimonio.modelo = {} as Modelo;
-      this.modalService.open(content, { centered: true }).result.then(
-        (result) => {
-          this.patrimoniosService.savenew(this.patrimonio).subscribe(
-            rest => {
-              this.router.navigate(['/patrimonios', rest.body]);
-            }
-          )
-        }, (reason) => {
-        });
-   
+      this.patrimonio.modelo = {} as Modelo;*/
+      console.log('Button ok clicked!');
+      this.isVisible = false;
+      console.log(content) ;
+      this.patrimoniosService.sendMail(content).subscribe();
+
+
     }
-  
+    showModal(): void {
+      this.isVisible = true;
+    }
+
+    handleOk(): void {
+      console.log('Button ok clicked!');
+      this.isVisible = false;
+    }
+
+    handleCancel(): void {
+      console.log('Button cancel clicked!');
+      this.isVisible = false;
+    }
 
 }
 
