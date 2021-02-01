@@ -1,6 +1,9 @@
 import { DestinationEmail } from './../../../models/report/destination-email';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { StorageService } from 'src/app/services/storage.service';
+import { Contato } from 'src/app/models/contato';
+import { FuncionarioService } from 'src/app/services/funcionario.service';
 
 @Component({
   selector: 'app-model-email',
@@ -12,6 +15,9 @@ export class ModelEmailComponent implements OnInit {
   @Output() htmlContent  ;
   @Output() destinatariemailemitter= new EventEmitter<DestinationEmail>();
   destinationEmail:DestinationEmail;
+  listaDestinos:string[];
+contacts:Contato;
+
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -40,10 +46,16 @@ export class ModelEmailComponent implements OnInit {
       },
     ]
   };
-  constructor() { }
+  constructor(
+    private storege:StorageService,
+    private funcionariosServices:FuncionarioService,
+  ) { }
 
   ngOnInit(): void {
     this.destinationEmail={} as DestinationEmail;
+    this.funcionariosServices.getcontacts(this.storege.getIdUser().id).subscribe(
+      
+    )
   }
   send() {
     console.log('this-' + this.destinationEmail.html);

@@ -10,6 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { DecimalPipe } from '@angular/common';
 import { tap, debounceTime, switchMap, delay } from 'rxjs/operators';
 import { Pages } from '../models/pages';
+import { Contato } from '../models/contato';
 
 @Injectable({
   providedIn: 'root'
@@ -102,5 +103,16 @@ export class FuncionarioService {
   }
   getfuncoes(): Observable<string[]> {
     return this.http.get<string[]>(`${API_CONFIG.funcionarios}/funcoes`);
+  }
+  getcontacts(id): Observable<Contato[]> {
+    return this.http.get<Contato[]>(`${API_CONFIG.funcionarios}/${id}/contact`);
+  }
+  insertcontact(id,p) {
+    return this.http.post(`${API_CONFIG.funcionarios}/${id}/contact`, p, { observe: 'response', responseType: 'text' });
+  }
+    findemail(email: string): Observable<BaseDto> {     
+    
+    return   this.http.get<BaseDto>(`${API_CONFIG.funcionarios}/findemail?email=${email}`) ;   
+
   }
 }

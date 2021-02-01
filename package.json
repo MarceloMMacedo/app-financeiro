@@ -41,6 +41,7 @@
     "numero-por-extenso": "^1.0.8",
     "popper.js": "^1.14.3",
     "rxjs": "~6.6.0",
+    "save": "^2.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

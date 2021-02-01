@@ -180,14 +180,15 @@ registerLocaleData(pt);
       AngularEditorModule
 
   ],
-  providers: [{ provide: NZ_I18N, useValue: pt_BR },
+  providers: [
+    StorageService,
+    { provide: NZ_I18N, useValue: pt_BR },
   { provide: NZ_ICONS, useValue: icons },
   { provide: LOCALE_ID, useValue: "pt_BR" },
     AccountService,
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthGuard,
-    StorageService,
+    AuthGuard, 
     EmpresaService,
     FuncionarioService,
     PatrimoniosService

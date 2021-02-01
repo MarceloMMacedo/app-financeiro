@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    try {
-      let localUser = this.storage.getLocalUser();
+    /*try {
+     let localUser = this.storage.getLocalUser();
       console.log(localUser);
 
       const token = localUser.token;//window.localStorage.getItem('token');
@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
         this.accountService.refreshToken()
           .subscribe(response => {
             this.accountService.successfulLogin(response.headers.get('Authorization'),
-              response.headers.get('ID_Company'));
-            //console.log('reflash : ' + response.headers.get('Authorization'));
+              response.headers.get('ID_Company') );
+            console.log('reflash : ' + response.headers.get('Authorization'));
             this.router.navigate(['index']);
           },
             error => {
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       this.accountService.logout();
 
       this.router.navigate(['login'])
-    }
+    }*/
   }
 
   async onSubmit() {

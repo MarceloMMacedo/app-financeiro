@@ -1,6 +1,6 @@
 export const STORAGE_KEYS = {
     localUser: "localUser",
     cart: "cursoSpringIonicCart",
-
-    company: "userCompany"
+    company: "userCompany",
+    idUser:"idUser"
 }
