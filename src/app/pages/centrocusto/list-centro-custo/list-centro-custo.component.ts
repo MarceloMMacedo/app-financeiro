@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CentroCusto } from '../../../models/centro-custo';
-import { StorageService } from '../../../services/storage.service';
 import { Router } from '@angular/router';
-import { CentroCustoService } from '../../../services/centro-custo.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CurrencyMaskInputMode } from 'ngx-currency';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { CurrencyMaskInputMode } from 'ngx-currency';
+import { Contato } from 'src/app/models/contato';
+import { DestinationEmail } from 'src/app/models/report/destination-email';
+import { FuncionarioService } from 'src/app/services/funcionario.service';
+import { CentroCusto } from '../../../models/centro-custo';
+import { CentroCustoService } from '../../../services/centro-custo.service';
+import { StorageService } from '../../../services/storage.service';
 
 @Component({
   selector: 'app-list-centro-custo',
@@ -17,7 +20,15 @@ import { CurrencyMaskInputMode } from 'ngx-currency';
 export class ListCentroCustoComponent implements OnInit {
 
   searchValue = '';
-  visible = false;
+  
+  
+  destinatariemail: DestinationEmail;
+  isVisible = false;
+  visible= false;
+
+ 
+  contacts: Contato[];
+  
   centrocusto: CentroCusto;
   centrocustos: CentroCusto[] = [] as CentroCusto[];
   listOfDisplaycentrocusto = [] as CentroCusto[];
@@ -40,6 +51,7 @@ export class ListCentroCustoComponent implements OnInit {
     private router: Router,
     private centroCustoService: CentroCustoService,
     private spinner: NgxSpinnerService,
+    private funcionariosService: FuncionarioService,
     private modalService: NgbModal
   ) {
 
@@ -140,5 +152,31 @@ export class ListCentroCustoComponent implements OnInit {
         this.spinner.hide();
       });
     }, 1000);
+  }
+  
+  sendmail(content) {  
+    this.isVisible = false;
+    console.log(content);
+    this.centroCustoService.sendMail(content).subscribe();
+
+
+  }
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+  addcontato(contact: Contato) {
+    this.funcionariosService.insertcontact(this.storage.getIdUser().id, contact).subscribe(
+    )
+
   }
 }

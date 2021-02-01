@@ -8,7 +8,7 @@
         <li class="breadcrumb-item active">Blank page</li>
 	  </ol>
 	-->
-</section>
+</section> 
 
 
 
@@ -33,7 +33,7 @@
                 <nz-dropdown-menu #menu="nzDropdownMenu">
                     <ul nz-menu nzSelectable>
                         <li nz-menu-item (click)="newpatrimonio(mynew)"><i nz-icon nzType="diff" nzTheme="outline"></i>Adicionar</li>
-                        <li nz-menu-item> <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir</li>
+                        <li nz-menu-item (click)="printview()"> <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir</li>
                         <li nz-menu-item (click)="showModal()"><i nz-icon nzType="share-alt" nzTheme="outline"></i>Enviar por email</li>
                     </ul>
                 </nz-dropdown-menu>
@@ -139,9 +139,10 @@
     </ng-container>
 </nz-modal>
 <ng-template #tplContent let-params>
-    <app-model-email [name]="'Email de Parimônio'" (destinatariemailemitter)="sendmail($event)"> </app-model-email>
+    <app-model-email [name]="'Email de Parimônio'" (destinatariemailemitter)="sendmail($event)"  (adddestinatariemailemitter)="addcontato($event)"> </app-model-email>
 </ng-template>
 <ng-template #tplFooter let-ref="modalRef">
 
 </ng-template>
 <div class="printdiv"></div>
+ 

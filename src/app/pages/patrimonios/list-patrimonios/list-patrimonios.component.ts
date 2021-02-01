@@ -12,6 +12,8 @@ import { PatrimoniosService } from 'src/app/services/patrimonios.service';
 import { ModeloService } from 'src/app/services/modelo.service';
 import { Modelo } from 'src/app/models/modelo';
 import { BaseDto } from 'src/app/models/dto/base-dto';
+import { FuncionarioService } from 'src/app/services/funcionario.service';
+import { Contato } from 'src/app/models/contato';
 
 @Component({
   selector: 'app-list-patrimonios',
@@ -49,20 +51,25 @@ export class ListPatrimoniosComponent implements OnInit {
   visible = false;
   listOfDisplayPatrimonios = [] as BaseDto[];
 
-  destinatariemail:DestinationEmail;
+  destinatariemail: DestinationEmail;
   isVisible = false;
+
+
+  contacts: Contato[];
+
   constructor(
     private router: Router,
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
     private patrimoniosService: PatrimoniosService,
     private utilService: UtilsService,
+    private funcionariosService: FuncionarioService,
     public storage: StorageService,
     private modeloService: ModeloService,) { }
 
 
   ngOnInit(): void {
-    this.destinatariemail={} as DestinationEmail;
+    this.destinatariemail = {} as DestinationEmail;
     this.patrimonio = {} as Patrimonio;
     this.patrimonio.modelo = {} as Modelo;
     this.patrimoniosService.getAll().subscribe(
@@ -71,14 +78,17 @@ export class ListPatrimoniosComponent implements OnInit {
         this.listOfDisplayPatrimonios = rest;
       }
     )
-
+    let id = this.storage.getIdUser().id;
+    this.funcionariosService.getcontacts(id).subscribe(
+      rest => { this.contacts = rest }
+    )
   }
 
   newpatrimonio(content) {
     this.patrimonio = {} as Patrimonio;
-    this.patrimonio.name='novo patrimonio';
-    this.patrimonio.status='Ativo';
-    this.patrimonio.statuslocacao='Ativo';
+    this.patrimonio.name = 'novo patrimonio';
+    this.patrimonio.status = 'Ativo';
+    this.patrimonio.statuslocacao = 'Ativo';
     this.patrimonio.modelo = {} as Modelo;
     this.modalService.open(content, { centered: true }).result.then(
       (result) => {
@@ -114,38 +124,54 @@ export class ListPatrimoniosComponent implements OnInit {
       this.listOfDisplayPatrimonios = this.patrimonios.filter((item: BaseDto) => item.name.toUpperCase().indexOf(this.searchValue.toUpperCase()) !== -1);
       this.spinner.hide();
     }, 200);
-    }
-    pdf(){
+  }
+  pdf() {
 
-    }
-
-
-    sendmail(content) {
-     /* this.patrimonio = {} as Patrimonio;
-      this.patrimonio.name='novo patrimonio';
-      this.patrimonio.status='Ativo';
-      this.patrimonio.statuslocacao='Ativo';
-      this.patrimonio.modelo = {} as Modelo;*/
-      console.log('Button ok clicked!');
-      this.isVisible = false;
-      console.log(content) ;
-      this.patrimoniosService.sendMail(content).subscribe();
+  }
 
 
-    }
-    showModal(): void {
-      this.isVisible = true;
-    }
+  sendmail(content) {  
+    this.isVisible = false;
+    console.log(content);
+    this.patrimoniosService.sendMail(content).subscribe();
 
-    handleOk(): void {
-      console.log('Button ok clicked!');
-      this.isVisible = false;
-    }
 
-    handleCancel(): void {
-      console.log('Button cancel clicked!');
-      this.isVisible = false;
-    }
+  }
+  showModal(): void {
+    this.isVisible = true;
+  }
 
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+
+  addcontato(contact: Contato) {
+    this.funcionariosService.insertcontact(this.storage.getIdUser().id, contact).subscribe(
+    )
+
+  }
+  printview() { 
+    setTimeout(() => {
+      this.patrimoniosService.getview().subscribe(
+        (response) => {
+          console.log(response);
+          const file = new Blob([response], { type: 'application/pdf' });
+
+          console.log(file);
+          const fileURL = URL.createObjectURL(file);
+
+          console.log(fileURL);
+          window.open(fileURL);
+
+          this.spinner.hide();
+        });
+    }, 1000);
+  }
 }
 

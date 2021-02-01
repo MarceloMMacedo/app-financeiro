@@ -130,7 +130,7 @@ export class PatrimoniosService {
       responseType: 'arraybuffer' as 'json'
       // 'responseType'  : 'blob' as 'json'        //This also worked
     };
-    return this.http.get<any>(`${API_CONFIG.baseUrl}/print/viewpatrimonio`, httpOptions);
+    return this.http.get<any>(`${API_CONFIG.patrimonios}/viewpdf`, httpOptions);
   }
   pdfAll(){
     const httpOptions = {
@@ -138,7 +138,7 @@ export class PatrimoniosService {
     };
    // return this.http.get<any>(`${API_CONFIG.repormovimentofinanceiro}/livrocaixa?datainicio=${datainicio}&datafim=${datafim}`, httpOptions);
   }
-
+ 
    sendMail(e:DestinationEmail){
      console.log(e);
     return this.http.put(`${API_CONFIG.patrimonios}/sendmail`, e);

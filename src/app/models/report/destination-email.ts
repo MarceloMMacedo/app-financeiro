@@ -1,6 +1,6 @@
 export interface DestinationEmail {
     messageSubject?:string;
     from?:string;
-    to?:string;
+    to?:string[];
     html?:string;
 }

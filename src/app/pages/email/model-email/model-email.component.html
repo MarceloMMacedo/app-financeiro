@@ -1,7 +1,35 @@
 <div class="container">
     <h3>{{name}} </h3>
-    <div class="form-group">
-        <input type="email" class="form-control" placeholder="To" [(ngModel)]="destinationEmail.to">
+    <div class="form-group"> 
+        <nz-select nzMode="tags" nzPlaceHolder="Email" [(ngModel)]="destinationEmail.to"  [nzDropdownRender]="renderTemplate">
+            <nz-option *ngFor="let option of contacts" [nzLabel]="option.name +' '+option.email" [nzValue]="option.email"></nz-option>
+          </nz-select>
+          <ng-template #renderTemplate>
+            <nz-divider></nz-divider>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="my-input">Nome</label>
+                            <input styleClass="md-inputfield" nz-input id="my-input"
+                             class=" form-control form-control-sm" type="text" name="name1" [(ngModel)]="contact.name">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="my-input">Email</label>
+                            <input styleClass="md-inputfield" nz-input id="my-input" class=" form-control form-control-sm" 
+                            type="text" name="name1" [(ngModel)]="contact.email">
+                        </div>
+                    </div>
+                </div>
+              <a class="add-item"  nz-popconfirm
+              nzPopconfirmTitle="Deseja adicionar novo contato?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="adddestinatario()"
+              (nzOnCancel)="cancel()" ><i nz-icon nzType="plus"></i> Add item</a>
+            </div>
+          </ng-template>
     </div>
 
     <div class="form-group">
@@ -15,7 +43,7 @@
 
     <div class="form-group m-b-0">
         <div class="text-right">
-            <button class="btn btn-primary waves-effect waves-light" (click)="send()"> <span>Send</span> <i class="mdi mdi-send ml-2"></i> </button>
+            <button *ngIf="destinationEmail.html.length>0 && destinationEmail.messageSubject.length>0 && destinationEmail.to!=null" class="btn btn-primary waves-effect waves-light" (click)="send()"> <span>Send</span> <i class="mdi mdi-send ml-2"></i> </button>
         </div>
     </div>
 

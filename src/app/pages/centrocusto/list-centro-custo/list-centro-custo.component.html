@@ -21,15 +21,30 @@
 
             </div>
             <div class="box-tools pull-right">
+                <a nz-dropdown [nzDropdownMenu]="menu">
+                    Atividade
+                    <i nz-icon nzType="down"></i>
+                  </a>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu nzSelectable>
+                        <li nz-menu-item (click)="newcentrocusto(content)"><i nz-icon nzType="diff" nzTheme="outline"></i>Adicionar</li>
+                        <li nz-menu-item (click)="printview()"> <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir</li>
+                        <li nz-menu-item (click)="showModal()"><i nz-icon nzType="share-alt" nzTheme="outline"></i>Enviar por email</li>
+                    </ul>
+                </nz-dropdown-menu>
+
+            </div>
+            <!--<div class="box-tools pull-right">
               <button type="button" class="btn btn-outline-primary btn-sm"   (click)="printview()">
                 <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir
      </button>
-                <button class="btn btn-outline-primary mb-2 mr-2" (click)="newcentrocusto(content)">
+                 <button class="btn btn-outline-primary mb-2 mr-2" (click)="newcentrocusto(content)">
+               
           Adicionar
         </button>
             </div>
         </div>
-
+    -->
         <nz-table #nzTable [nzData]="listOfDisplaycentrocusto" nzTableLayout="fixed" nzSize="small" nzBordered [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
             <thead>
                 <tr>
@@ -110,4 +125,37 @@
         <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
         <button type="button" class="btn btn-danger" *ngIf="centrocusto.name!=null && centrocusto.name!=null && centrocusto.saldo!=null && centrocusto.saldo!=null" (click)="modal.close('Ok click')">Ok</button>
     </div>
+</ng-template>
+
+
+
+<ng-template #sendmailmodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Enviar Email</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <app-model-email [name]="'Email de Parimônio'" (send)="modal.close($event)"> </app-model-email>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">
+      Cancelar
+    </button>
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('onconsole()')">
+      <i class="fas fa-check-double"></i> Confirmar
+    </button>
+    </div>
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzContent]="tplContent" [nzFooter]="tplFooter">
+    <ng-container *nzModalContent>
+    </ng-container>
+</nz-modal>
+<ng-template #tplContent let-params>
+    <app-model-email [name]="'Email de Centro Custo'" (destinatariemailemitter)="sendmail($event)"  (adddestinatariemailemitter)="addcontato($event)"> </app-model-email>
+</ng-template>
+<ng-template #tplFooter let-ref="modalRef">
+
 </ng-template>

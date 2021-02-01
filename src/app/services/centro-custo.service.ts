@@ -9,6 +9,7 @@ import { DecimalPipe } from '@angular/common';
 import { tap, debounceTime, switchMap, delay } from 'rxjs/operators';
 import { Pages } from '../models/pages';
 import { CentroCusto } from '../models/centro-custo';
+import { DestinationEmail } from '../models/report/destination-email';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +59,8 @@ export class CentroCustoService {
     };
     return this.http.get<any>(`${API_CONFIG.centrocustos}/viewpdf`, httpOptions);
   }
-
+  sendMail(e:DestinationEmail){
+    console.log(e);
+   return this.http.put(`${API_CONFIG.centrocustos}/sendmail`, e);
+}
 }
