@@ -10,6 +10,7 @@ import { Pages } from '../models/pages';
 import { Patrimonio } from '../models/patrimonio';
 import { MovimentoFinanceiro } from '../models/movimento-financeiro';
 import { Contrato } from '../models/contrato';
+import { DestinationEmail } from '../models/report/destination-email';
 @Injectable({
   providedIn: 'root'
 })
@@ -107,4 +108,14 @@ export class ContratoService {
   getfuncoes(): Observable<string[]> {
     return this.http.get<string[]>(`${API_CONFIG.contratos}/funcoes`);
   }
+  getview(): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json'
+      // 'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    return this.http.get<any>(`${API_CONFIG.contratos}/viewpdf`, httpOptions);
+  }
+  sendMail(e:DestinationEmail){ 
+   return this.http.put(`${API_CONFIG.contratos}/sendmail`, e);
+}
 }

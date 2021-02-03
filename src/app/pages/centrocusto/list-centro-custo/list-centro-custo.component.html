@@ -17,19 +17,23 @@
             <h3 class="box-title">Lista</h3>
 
             <div class="form-group form-inline form-element">
-                Pesquisar: <input nz-input placeholder="Pesquisar" class="form-control form-control-sm ml-2 " name="search" [(ngModel)]="searchValue" #search (keyup)="debounceTimeSearch()">
+                Pesquisar: <input nz-input placeholder="Pesquisar" class="form-control form-control-sm ml-2 "
+                    name="search" [(ngModel)]="searchValue" #search (keyup)="debounceTimeSearch()">
 
             </div>
             <div class="box-tools pull-right">
                 <a nz-dropdown [nzDropdownMenu]="menu">
                     Atividade
                     <i nz-icon nzType="down"></i>
-                  </a>
+                </a>
                 <nz-dropdown-menu #menu="nzDropdownMenu">
                     <ul nz-menu nzSelectable>
-                        <li nz-menu-item (click)="newcentrocusto(content)"><i nz-icon nzType="diff" nzTheme="outline"></i>Adicionar</li>
-                        <li nz-menu-item (click)="printview()"> <i nz-icon nzType="printer" nzTheme="outline"></i>Imprimir</li>
-                        <li nz-menu-item (click)="showModal()"><i nz-icon nzType="share-alt" nzTheme="outline"></i>Enviar por email</li>
+                        <li nz-menu-item (click)="newcentrocusto(content)"><i nz-icon nzType="diff"
+                                nzTheme="outline"></i>Adicionar</li>
+                        <li nz-menu-item (click)="printview()"> <i nz-icon nzType="printer"
+                                nzTheme="outline"></i>Imprimir</li>
+                        <li nz-menu-item (click)="showModal()"><i nz-icon nzType="share-alt"
+                                nzTheme="outline"></i>Enviar por email</li>
                     </ul>
                 </nz-dropdown-menu>
 
@@ -43,15 +47,18 @@
           Adicionar
         </button>
             </div>
+     -->
         </div>
-    -->
-        <nz-table #nzTable [nzData]="listOfDisplaycentrocusto" nzTableLayout="fixed" nzSize="small" nzBordered [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
+
+        <nz-table #nzTable [nzData]="listOfDisplaycentrocusto" nzTableLayout="fixed" nzSize="small" nzBordered
+            [nzPageSize]="10" [nzScroll]="{ y: '300px' }">
             <thead>
                 <tr>
                     <th nzWidth="5%">Index </th>
                     <th nzCustomFilter>
                         Nome
-                        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0"
+                            [nzDropdownMenu]="menu">
                             <i nz-icon nzType="search"></i>
                         </nz-filter-trigger>
                     </th>
@@ -82,8 +89,8 @@
                 <div class="search-box">
                     <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
                     <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
-            Search
-          </button>
+                        Search
+                    </button>
                     <button nz-button nzSize="small" (click)="reset()">Reset</button>
                 </div>
             </div>
@@ -106,13 +113,16 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="my-input1">Descrição</label>
-                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="centrocusto.name" type="text" name="street" nz-input placeholder="Descrição">
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="centrocusto.name"
+                        type="text" name="street" nz-input placeholder="Descrição">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="my-input1">Saldo</label>
-                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="centrocusto.saldo" type="text" name="text" nz-input name="street" nz-input placeholder="Saldo" currencyMask [options]="customCurrencyMaskConfig">
+                    <input id="my-input1" class="form-control form-control-sm" [(ngModel)]="centrocusto.saldo"
+                        type="text" name="text" nz-input name="street" nz-input placeholder="Saldo" currencyMask
+                        [options]="customCurrencyMaskConfig">
                 </div>
             </div>
 
@@ -123,7 +133,9 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
-        <button type="button" class="btn btn-danger" *ngIf="centrocusto.name!=null && centrocusto.name!=null && centrocusto.saldo!=null && centrocusto.saldo!=null" (click)="modal.close('Ok click')">Ok</button>
+        <button type="button" class="btn btn-danger"
+            *ngIf="centrocusto.name!=null && centrocusto.name!=null && centrocusto.saldo!=null && centrocusto.saldo!=null"
+            (click)="modal.close('Ok click')">Ok</button>
     </div>
 </ng-template>
 
@@ -132,29 +144,32 @@
 <ng-template #sendmailmodal let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-title">Enviar Email</h4>
-        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <app-model-email [name]="'Email de Parimônio'" (send)="modal.close($event)"> </app-model-email>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">
-      Cancelar
-    </button>
+            Cancelar
+        </button>
         <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('onconsole()')">
-      <i class="fas fa-check-double"></i> Confirmar
-    </button>
+            <i class="fas fa-check-double"></i> Confirmar
+        </button>
     </div>
 </ng-template>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzContent]="tplContent" [nzFooter]="tplFooter">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzContent]="tplContent" [nzFooter]="tplFooter">
     <ng-container *nzModalContent>
     </ng-container>
 </nz-modal>
 <ng-template #tplContent let-params>
-    <app-model-email [name]="'Email de Centro Custo'" (destinatariemailemitter)="sendmail($event)"  (adddestinatariemailemitter)="addcontato($event)"> </app-model-email>
+    <app-model-email [name]="'Email de Centro Custo'" (destinatariemailemitter)="sendmail($event)"
+        (adddestinatariemailemitter)="addcontato($event)"> </app-model-email>
 </ng-template>
 <ng-template #tplFooter let-ref="modalRef">
 

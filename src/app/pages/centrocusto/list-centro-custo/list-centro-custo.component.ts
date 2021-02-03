@@ -51,7 +51,7 @@ export class ListCentroCustoComponent implements OnInit {
     private router: Router,
     private centroCustoService: CentroCustoService,
     private spinner: NgxSpinnerService,
-    private funcionariosService: FuncionarioService,
+    private funcionariosService: FuncionarioService, 
     private modalService: NgbModal
   ) {
 

@@ -14,12 +14,29 @@
                 Pesquisar: <input nz-input placeholder="Pesquisar" class="form-control form-control-sm ml-2 " name="search" [(ngModel)]="searchValue" #search (keyup)="debounceTimeSearch()">
 
             </div>
-            <div class="box-tools pull-right">
+            <!--<div class="box-tools pull-right">
 
                 <button class="btn btn-outline-primary mb-2 mr-2" [routerLink]="['/novocontratos', '0']" routerLinkActive="router-link-active">Adicionar</button>
 
             </div>
+        -->
+        <div class="box-tools pull-right">
+            <a nz-dropdown [nzDropdownMenu]="menu">
+                Atividade
+                <i nz-icon nzType="down"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                    <li nz-menu-item   [routerLink]="['/novocontratos', '0']" routerLinkActive="router-link-active"><i nz-icon nzType="diff"
+                            nzTheme="outline"></i>Adicionar</li>
+                    <li nz-menu-item (click)="printview()"> <i nz-icon nzType="printer"
+                            nzTheme="outline"></i>Imprimir</li>
+                    <li nz-menu-item (click)="showModal()"><i nz-icon nzType="share-alt"
+                            nzTheme="outline"></i>Enviar por email</li>
+                </ul>
+            </nz-dropdown-menu>
 
+        </div>
         </div>
 
         <div class="box-body  ">
